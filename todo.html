@@ -16,7 +16,22 @@
                     flex-direction: column;
                     padding: 40px;
                     /*align-items:center;*/
+                    /*margin: 0; */
+                    height: 100vh;
+                    /*overflow: hidden;*/
 
+                }
+
+
+
+                #app{
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: start; /* adding new adjustment */
+                    justify-content:flex-start;
+                    gap: 20px; /* adding new adjustment */
+                    /*padding-bottom: 20px;*/
+                    margin-top: 20px; /* adding new adjustment */
                 }
 
                 /*h1, h2{
@@ -32,10 +47,12 @@
                 .todo-list{
                     background-color: rgb(35, 35, 35);
                     padding: 20px;
-                    margin: 20px auto;
+                    /*margin: 20px auto;*/
+                    margin: 10px; /*new adjustment */
                     width: 300px;
                     border-radius: 20px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                    height: auto; /*new adjustment */
 
                 }
 
@@ -56,15 +73,10 @@
 
 
         </head>
-           
-            
-
-        
-             <!--<div id="app"> -->
-                <!--To do list app goes here-->
+             
                 
         <body>
-            <!--</div>-->
+           
             <div id="app">
                 <h1>Notes</h1>
                 <button onclick="AddToDoList()">Add To-Do-List</button>
@@ -75,12 +87,13 @@
                         <li>task_1<button onclick="DeleteTask()">Delete</button></li>
                         <li>task_2<button onclick="DeleteTask()">Delete</button></li>
                         <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
                     </ul>
                     <button onclick="AddTask()">Add-Task</button>
 
                     
 
-                </div>
+                </div> 
 
                 <div class="todo-list">
                     <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
@@ -94,7 +107,7 @@
 
                     
 
-                </div>
+                </div> 
 
                 <div class="todo-list">
                     <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
@@ -102,21 +115,56 @@
                         <li>task_1<button onclick="DeleteTask()">Delete</button></li>
                         <li>task_2<button onclick="DeleteTask()">Delete</button></li>
                         <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
                     </ul>
                     <button onclick="AddTask()">Add-Task</button>
 
                     
 
-                </div>
-                
-                <!--<div class="todo-list">
-                    <h2>to_do_2</h2>
-                    <ul>
-                        <li>task_1</li>
-                        <li>task_2</li>
-                    </ul>
+                </div> 
 
-                </div> -->
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
+
+                    
+
+                </div> 
+
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
+
+                    
+
+                </div> 
+
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
+
+                    
+
+                </div> 
+              
 
             </div>
         
