@@ -4,26 +4,50 @@
 
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initail-scale=1.0">
-            <title>To-do-list</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>To-Do-List</title>
 
             <style>
                 body{
                     background-color: black;
                     color:white;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Arial', sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 40px;
+                    /*align-items:center;*/
+
                 }
 
+                /*h1, h2{
+                    text-align: center;
+                }*/
+
+                /*h1{
+                    padding: 40px;
+                }*/
+
+                
 
                 .todo-list{
                     background-color: rgb(35, 35, 35);
                     padding: 20px;
-                    margin: 100px;
+                    margin: 20px auto;
+                    width: 300px;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
                 }
 
                 button{
+                    background-color: #282828;
+                    color:white;
+                    padding: 4px 8px;
+                    border-radius: 10px;
+                    cursor: pointer;
                     margin-top: 10px;
+
+
                 }
 
 
@@ -44,24 +68,55 @@
             <div id="app">
                 <h1>Notes</h1>
                 <button onclick="AddToDoList()">Add To-Do-List</button>
+                <button onclick="SortToDoList()">Sort To-Do-List</button>
                 <div class="todo-list">
                     <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
                     <ul>
-                        <li>task_1<button onclick="DeleteTask()">Delete-Task</button></li>
-                        <li>task_2<button onclick="DeleteTask()">Delete-Task</button></li>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
                     </ul>
                     <button onclick="AddTask()">Add-Task</button>
 
+                    
+
+                </div>
+
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
+
+                    
+
+                </div>
+
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
+
+                    
+
                 </div>
                 
-                <div class="todo-list">
+                <!--<div class="todo-list">
                     <h2>to_do_2</h2>
                     <ul>
                         <li>task_1</li>
                         <li>task_2</li>
                     </ul>
 
-                </div>
+                </div> -->
 
             </div>
         
