@@ -7,19 +7,65 @@
             <meta name="viewport" content="width=device-width, initail-scale=1.0">
             <title>To-do-list</title>
 
+            <style>
+                body{
+                    background-color: black;
+                    color:white;
+                    font-family: Arial, sans-serif;
+                }
+
+
+                .todo-list{
+                    background-color: rgb(35, 35, 35);
+                    padding: 20px;
+                    margin: 100px;
+
+                }
+
+                button{
+                    margin-top: 10px;
+                }
+
+
+
+            </style>
+
 
         </head>
-            <div id="app">
-                <!--To do list app goes here-->
-
-            </div>
-
+           
             
 
+        
+             <!--<div id="app"> -->
+                <!--To do list app goes here-->
+                
         <body>
+            <!--</div>-->
+            <div id="app">
+                <h1>Notes</h1>
+                <button onclick="AddToDoList()">Add To-Do-List</button>
+                <div class="todo-list">
+                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <ul>
+                        <li>task_1<button onclick="DeleteTask()">Delete-Task</button></li>
+                        <li>task_2<button onclick="DeleteTask()">Delete-Task</button></li>
+                    </ul>
+                    <button onclick="AddTask()">Add-Task</button>
 
+                </div>
+                
+                <div class="todo-list">
+                    <h2>to_do_2</h2>
+                    <ul>
+                        <li>task_1</li>
+                        <li>task_2</li>
+                    </ul>
+
+                </div>
+
+            </div>
+        
         </body>
-
 
 
 
