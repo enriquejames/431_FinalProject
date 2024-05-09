@@ -74,10 +74,21 @@
 
                 }
 
-                li p{ /*new adjustment*/
+                /*li p{
                     margin: 5px 0;
                     color: #ccc;
                     font-size: small;
+                }*/
+
+                input[type="text"]{
+                    padding: 5px;
+                    margin: 5px 0;
+                    border: 2px solid #555;
+                    border-radius: 5px;
+                    background-color: #333;
+                    color: white;
+                    width: calc(100% - 40px);
+                    
                 }
 
 
@@ -104,15 +115,23 @@
                     <ul>
                         <li>
                             
-                            task_1<p>this is an additional two sentneces</p>
+                            <input type="text" placeholder="Enter Task" maxlength="30"/>
+                            
                             
                             <button onclick="DeleteTask()">Delete</button>
                         
                         </li>
                         <li>
                             
-                            task_2<p>these are additional two sentneces</p>
+                            <input type="text" placeholder="Enter Task" maxlength="30"/>
+                           
+                            <button onclick="DeleteTask()">Delete</button>
+                        
+                        </li>
+                        <li>
                             
+                            <input type="text" placeholder="Enter Task" maxlength="30"/>
+                           
                             <button onclick="DeleteTask()">Delete</button>
                         
                         </li>
@@ -121,6 +140,9 @@
 
                 </div> 
 
+                
+
+               
                
 
           
