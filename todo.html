@@ -6,6 +6,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>To-Do-List</title>
+            
 
             <style>
                 body{
@@ -109,9 +110,18 @@
                     <button onclick="SortToDoList()">Sort To-Do-List</button>
                 </div>
 
+                <!--this <ul> unordered list has to be empty -->
+                <!--delete all <li> because its just for a test -->
+                <!-- team members working on JS should use fetch request to add additional task-->
+                <!-- to add new task when button is pushed-->
+                <!-- this webpage has to be empty except add todo list and sort buttons-->
+                <!--when user click add todo list, new list is added to the webpage-->
+                <!-- delete '>Delete To-Do-List<' because it will be fetched empty when fetch request is happening -->
+
 
                 <div class="todo-list">
-                    <h2>To-Do-List<button onclick="DeleteToDoList()">Delete To-Do-List</button></h2>
+                    <input type="text" placeholder="Enter To-Do-List" maxlength="30"/>
+                    <button onclick="DeleteToDoList()">Delete To-Do-List</button>
                     <ul>
                         <li>
                             
@@ -139,10 +149,6 @@
                     <button onclick="AddTask()">Add-Task</button>
 
                 </div> 
-
-                
-
-               
                
 
           
