@@ -1,0 +1,20 @@
+[
+    {
+        "list": "Personal List",
+        "listid":"1",
+        "tasks": {
+            "task1": "Pick up dry cleaning",
+            "task2": "Workout",
+            "task3": "Meal Prep"
+        }
+    },
+    {
+        "list": "School List",
+        "listid":"2",
+        "tasks": {
+            "task1": "Finish Project",
+            "task2": "Meet Professor for Office Hours",
+            "task3": "Pay Fees"
+        }
+    }
+]
