@@ -1,20 +1,36 @@
 [
     {
+        "listid": "1",
         "list": "Personal List",
-        "listid":"1",
         "tasks": {
-            "task1": "Pick up dry cleaning",
-            "task2": "Workout",
-            "task3": "Meal Prep"
-        }
+            "task1": {
+                "name": "Buy groceries",
+                "completed": false,
+                "timestamp": "2023-01-01T12:00:00Z"
+            },
+            "task2": {
+                "name": "Clean the house",
+                "completed": false,
+                "timestamp": "2023-01-02T12:00:00Z"
+            }
+        },
+        "created": "2023-01-01T12:00:00Z"
     },
     {
+        "listid": "2",
         "list": "School List",
-        "listid":"2",
         "tasks": {
-            "task1": "Finish Project",
-            "task2": "Meet Professor for Office Hours",
-            "task3": "Pay Fees"
-        }
+            "task1": {
+                "name": "Finish homework",
+                "completed": false,
+                "timestamp": "2023-01-01T12:00:00Z"
+            },
+            "task2": {
+                "name": "Study for exam",
+                "completed": false,
+                "timestamp": "2023-01-02T12:00:00Z"
+            }
+        },
+        "created": "2023-01-01T12:00:00Z"
     }
 ]

@@ -1,135 +1,92 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        .todo-list {
+            margin-bottom: 20px;
+        }
 
-    <html lang="en">
+        .clickable-list-item {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            max-width: 600px; /* Ensures the items don't extend too far */
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>To-Do-List</title>
-            
+        .clickable-list-item:hover {
+            background-color: #f0f0f0;
+        }
 
-            <style>
-                body{
-                    background-color: black;
-                    color:white;
-                    font-family: 'Arial', sans-serif;
-                    display: flex;
-                    flex-direction: column;
-                   
-                    margin: 40px;
-                   
-                   
-                   
-                    /*overflow: hidden;*/
+        .list-details-item {
+            padding: 5px 0;
+        }
 
-                }
+        .list-details-item button {
+            margin-left: 10px;
+        }
 
+        .list-details-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
 
+        #list-container, #list-details-container, #sort-options {
+            max-width: 600px; /* Ensures the containers don't extend too far */
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Form for adding lists -->
+    <form id="add-list-form">
+        <label for="list-name">List Name:</label>
+        <input type="text" id="list-name" required>
+        <button type="button" data-click="add_list_to_db">Add List</button>
+    </form>
 
-                #app{
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: start; /* adding new adjustment */
-                    justify-content:center;
-                    gap: 20px; /* adding new adjustment */
-                    /*padding-bottom: 20px;*/
-                    margin-top: 20px; /* adding new adjustment */
-                }
+    <!-- Section for viewing lists -->
+    <div id="list-container">
+        <h2>All Lists</h2>
+        <ul id="lists"></ul>
+    </div>
 
-                /*h1, h2{
-                    text-align: center;
-                }*/
+    <!-- Section for viewing a specific list -->
+    <div id="list-details-container" style="display: none;">
+        <h2 id="list-name-header"></h2>
+        <button type="button" data-click="delete_list">Delete List</button>
+        <button type="button" data-click="change_list_name">Change List Name</button>
+        <ul id="list-details"></ul>
+        <form id="add-task-form">
+            <label for="task-details">Task:</label>
+            <input type="text" id="task-details" required>
+            <button type="button" data-click="add_task_to_list">Add Task</button>
+        </form>
+    </div>
 
-                /*h1{
-                    padding: 40px;
-                }*/
+    <!-- Sort options -->
+    <div id="sort-options">
+        <label for="sort-by">Sort by:</label>
+        <select id="sort-by">
+            <option value="name">Name</option>
+            <option value="created">Created</option>
+        </select>
+        <label for="sort-order">Order:</label>
+        <select id="sort-order">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+        <button type="button" data-click="sort_lists">Sort Lists</button>
+    </div>
 
-                .control-panel{ /*new adjustment*/
-                    width: 100%;
-                                      
-                    
-                }
-                
-
-                .todo-list{
-                    background-color: rgb(35, 35, 35);
-                    padding: 20px;
-                    /*margin: 20px auto;*/
-                    margin: 10px; /*new adjustment */
-                    width: 300px;
-                    border-radius: 20px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-                    height: auto; /*new adjustment */
-                   
-
-                }
-
-                button{
-                    background-color: #282828;
-                    color:white;
-                    padding: 4px 8px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    margin-top: 10px;
-
-
-                }
-
-                /*li p{
-                    margin: 5px 0;
-                    color: #ccc;
-                    font-size: small;
-                }*/
-
-                input[type="text"]{
-                    padding: 5px;
-                    margin: 5px 0;
-                    border: 2px solid #555;
-                    border-radius: 5px;
-                    background-color: #333;
-                    color: white;
-                    width: calc(100% - 40px);
-                    
-                }
-
-
-
-            </style>
-
-
-        </head>
-             
-                
-        <body>
-           
-            <div id="app">
-               
-                <div class="control-panel">
-                    <h1>Notes</h1>
-                    <button data-click="add_list">Add To-Do-List</button>
-                    <button data-click="delete">Sort To-Do-List</button>
-                </div>
-
-                <!--this <ul> unordered list has to be empty -->
-                <!--delete all <li> because its just for a test -->
-                <!-- team members working on JS should use fetch request to add additional task-->
-                <!-- to add new task when button is pushed-->
-                <!-- this webpage has to be empty except add todo list and sort buttons-->
-                <!--when user click add todo list, new list is added to the webpage-->
-                <!-- delete '>Delete To-Do-List<' because it will be fetched empty when fetch request is happening -->
-
-
-                <div class="todo-list">
-
-                </div> 
-               
-
-          
-            </div>
-
-            <script src="./app.js"></script>
-        
-        </body>
-
-
-    </html>
+    <!-- Include the JavaScript file -->
+    <script src="app.js"></script>
+</body>
+</html>

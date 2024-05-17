@@ -1,76 +1,201 @@
-let current_id = 0
-document.addEventListener('DOMContentLoaded', () => { // Corrected here
-    document.addEventListener('click', handleDocumentClick);
+let currentListId = 0;
+let lists = [];
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', handleDocumentClick);
+    loadLists();
     window.actions = {
-        add_list: AddToDoList,
-        add_list_to_db: AskForTasks
-        // Removed the delete action since sortAction is undefined
+        add_list_to_db: AddToDoList,
+        add_task_to_list: HandleAddTask,
+        delete_list: ConfirmDeleteList,
+        change_list_name: ChangeListName,
+        sort_lists: SortLists,
+        view_list: ViewList,
+        toggle_task_status: ToggleTaskStatus,
+        delete_task: ConfirmDeleteTask,
+        show_data: ShowData
     };
 });
 
 function handleDocumentClick(e) {
-    // Prevent default action if needed
-    e.preventDefault();
-    
-    // Determine the action based on the data-click attribute
     const actionKey = e.target.dataset.click;
     const action = window.actions[actionKey];
-    
-    // Execute the action if it exists
     if (action) {
-        action(e); // Pass the event object if needed
+        action(e);
     } else {
         console.warn(`No action found for ${actionKey}`);
     }
 }
 
-// Declare loadView in the global scope
-async function loadView(viewUrl, className) {
-    try {
-        const response = await fetch(viewUrl);
-        const html = await response.text();
-        const elements = document.getElementsByClassName(className);
-        if (elements.length > 0) {
-            elements[0].innerHTML = html;
-        } else {
-            console.error(`No elements found with class name "${className}".`);
+async function loadLists() {
+    const response = await fetch('./api/helpers/data.json');
+    lists = await response.json();
+    displayLists();
+}
+
+function displayLists() {
+    const listsContainer = document.getElementById('lists');
+    listsContainer.innerHTML = '';
+    lists.forEach(list => {
+        const listItem = document.createElement('li');
+        listItem.textContent = list.list;
+        listItem.classList.add('clickable-list-item');
+        listItem.dataset.click = 'view_list';
+        listItem.dataset.listId = list.listid;
+        listsContainer.appendChild(listItem);
+    });
+}
+
+async function AddToDoList(event) {
+    const listNameInput = document.getElementById('list-name');
+    const listName = listNameInput.value;
+    if (!listName) {
+        alert('Please provide a list name.');
+        return;
+    }
+
+    const newListId = lists.length ? Math.max(...lists.map(list => parseInt(list.listid, 10))) + 1 : 1;
+    const timestamp = new Date().toISOString();
+
+    const newList = {
+        list: listName,
+        listid: newListId.toString(),
+        tasks: {},
+        created: timestamp
+    };
+
+    lists.push(newList);
+    await saveLists();
+    listNameInput.value = '';
+    displayLists();
+}
+
+async function saveLists() {
+    await fetch('./api/helpers/data.json', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(lists, null, 2)
+    });
+}
+
+function ViewList(e) {
+    const listId = e.target.dataset.listId;
+    const list = lists.find(list => list.listid === listId);
+
+    if (list) {
+        currentListId = listId;
+        document.getElementById('list-name-header').textContent = list.list;
+        document.getElementById('list-details-container').style.display = 'block';
+        const listDetailsContainer = document.getElementById('list-details');
+        listDetailsContainer.innerHTML = '';
+
+        for (const [taskId, taskDetails] of Object.entries(list.tasks)) {
+            const taskItem = document.createElement('li');
+            taskItem.classList.add('list-details-item');
+            taskItem.innerHTML = `
+                <input type="checkbox" data-click="toggle_task_status" data-task-id="${taskId}" ${taskDetails.completed ? 'checked' : ''}>
+                ${taskDetails.name} <small>(${taskDetails.timestamp})</small>
+                <button data-click="delete_task" data-task-id="${taskId}">Delete</button>
+            `;
+            listDetailsContainer.appendChild(taskItem);
         }
-    } catch (error) {
-        console.error('Error loading view:', error);
     }
 }
 
+async function HandleAddTask(event) {
+    const taskDetailsInput = document.getElementById('task-details');
+    const taskDetails = taskDetailsInput.value;
+    if (!taskDetails) {
+        alert('Please provide a task.');
+        return;
+    }
 
-async function AddToDoList(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    await loadView('./views/add_to_do_list.html', 'todo-list');
-    const listNameInput = document.getElementById('list-name');
-    const listIdInput = document.getElementById('list-id');
-
-    // Read the JSON file
-    const response = await fetch('./api/helpers/data.json');
-    const data = await response.json();
-
-    // Find the highest listid and increment it by one
-    let highestId = 0;
-    data.forEach(item => {
-        const currentId = parseInt(item.listid, 10);
-        if (currentId > highestId) {
-            highestId = currentId;
-        }
-    });
-    const newListId = highestId + 1;
-
-    // Assign the new ID to the input field
-    listIdInput.value = newListId;
-
-    //saved so can add tasks
-    current_id = newListId
+    const list = lists.find(list => list.listid === currentListId);
+    if (list) {
+        const newTaskId = `task${Object.keys(list.tasks).length + 1}`;
+        const timestamp = new Date().toISOString();
+        list.tasks[newTaskId] = { name: taskDetails, completed: false, timestamp: timestamp };
+        await saveLists();
+        ViewList({ target: { dataset: { listId: currentListId } } });
+        taskDetailsInput.value = '';
+    }
 }
 
-function AskForTasks() {
-    const listNameInput = document.getElementById('list-name');
-    const listIdInput = document.getElementById('list-id'); // Correctly gets the input element
-    console.log(`Adding list: ${listNameInput.value}, ID: ${listIdInput.value}`); // Logs the values of both inputs
+async function ToggleTaskStatus(e) {
+    const taskId = e.target.dataset.taskId;
+    const list = lists.find(list => list.listid === currentListId);
+
+    if (list) {
+        list.tasks[taskId].completed = e.target.checked;
+        await saveLists();
+    }
+}
+
+async function ConfirmDeleteTask(e) {
+    const taskId = e.target.dataset.taskId;
+    if (confirm("Are you sure you want to delete this task?")) {
+        DeleteTask(taskId);
+    }
+}
+
+async function DeleteTask(taskId) {
+    const list = lists.find(list => list.listid === currentListId);
+
+    if (list) {
+        delete list.tasks[taskId];
+        await saveLists();
+        ViewList({ target: { dataset: { listId: currentListId } } });
+    }
+}
+
+async function ConfirmDeleteList() {
+    if (confirm("Are you sure you want to delete this list?")) {
+        DeleteList();
+    }
+}
+
+async function DeleteList() {
+    lists = lists.filter(list => list.listid !== currentListId);
+    await saveLists();
+    document.getElementById('list-details-container').style.display = 'none';
+    displayLists();
+}
+
+async function ChangeListName() {
+    const newName = prompt('Enter new list name:');
+    if (newName) {
+        const list = lists.find(list => list.listid === currentListId);
+        if (list) {
+            list.list = newName;
+            await saveLists();
+            document.getElementById('list-name-header').textContent = newName;
+            displayLists();
+        }
+    }
+}
+
+function SortLists() {
+    const sortBy = document.getElementById('sort-by').value;
+    const sortOrder = document.getElementById('sort-order').value;
+
+    lists.sort((a, b) => {
+        let comparison = 0;
+        if (sortBy === 'name') {
+            comparison = a.list.localeCompare(b.list);
+        } else if (sortBy === 'created') {
+            comparison = new Date(a.created) - new Date(b.created);
+        }
+
+        return sortOrder === 'asc' ? comparison : -comparison;
+    });
+
+    displayLists();
+}
+
+async function ShowData() {
+    const response = await fetch('./api/helpers/data.json');
+    const data = await response.json();
+    document.getElementById('data-display').textContent = JSON.stringify(data, null, 2);
 }
