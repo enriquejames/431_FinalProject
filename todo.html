@@ -5,7 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <style>
-        .todo-list {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-group input {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .list-container, .list-details-container, .sort-options {
             margin-bottom: 20px;
         }
 
@@ -16,77 +74,113 @@
             margin: 5px 0;
             border-radius: 5px;
             transition: background-color 0.3s ease;
-            max-width: 600px; /* Ensures the items don't extend too far */
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .clickable-list-item:hover {
-            background-color: #f0f0f0;
+            background-color: #e9ecef;
         }
 
         .list-details-item {
             padding: 5px 0;
+            display: flex;
+            align-items: center;
         }
 
         .list-details-item button {
-            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .list-details-item button:hover {
+            background-color: #c82333;
         }
 
         .list-details-item input[type="checkbox"] {
             margin-right: 10px;
         }
 
-        #list-container, #list-details-container, #sort-options {
-            max-width: 600px; /* Ensures the containers don't extend too far */
-            margin-left: auto;
-            margin-right: auto;
+        .sort-options {
+            display: flex;
+            align-items: center;
+        }
+
+        .sort-options label, .sort-options select {
+            margin-right: 10px;
+        }
+
+        .sort-options button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .sort-options button:hover {
+            background-color: #218838;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
         }
     </style>
 </head>
 <body>
-    <!-- Form for adding lists -->
-    <form id="add-list-form">
-        <label for="list-name">List Name:</label>
-        <input type="text" id="list-name" required>
-        <button type="button" data-click="add_list_to_db">Add List</button>
-    </form>
-
-    <!-- Section for viewing lists -->
-    <div id="list-container">
-        <h2>All Lists</h2>
-        <ul id="lists"></ul>
-    </div>
-
-    <!-- Section for viewing a specific list -->
-    <div id="list-details-container" style="display: none;">
-        <h2 id="list-name-header"></h2>
-        <button type="button" data-click="delete_list">Delete List</button>
-        <button type="button" data-click="change_list_name">Change List Name</button>
-        <ul id="list-details"></ul>
-        <form id="add-task-form">
-            <label for="task-details">Task:</label>
-            <input type="text" id="task-details" required>
-            <button type="button" data-click="add_task_to_list">Add Task</button>
+    <div class="container">
+        <form id="add-list-form" class="form-group">
+            <label for="list-name">List Name:</label>
+            <input type="text" id="list-name" required>
+            <button type="button" data-click="add_list_to_db">Add List</button>
         </form>
+
+        <div id="list-container" class="list-container">
+            <h2>All Lists</h2>
+            <ul id="lists"></ul>
+        </div>
+
+        <div id="list-details-container" class="list-details-container" style="display: none;">
+            <h2 id="list-name-header"></h2>
+            <button type="button" data-click="delete_list">Delete List</button>
+            <button type="button" data-click="change_list_name">Change List Name</button>
+            <ul id="list-details"></ul>
+            <form id="add-task-form" class="form-group">
+                <label for="task-details">Task:</label>
+                <input type="text" id="task-details" required>
+                <button type="button" data-click="add_task_to_list">Add Task</button>
+            </form>
+        </div>
+
+        <div id="sort-options" class="sort-options">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by">
+                <option value="name">Name</option>
+                <option value="created">Created</option>
+            </select>
+            <label for="sort-order">Order:</label>
+            <select id="sort-order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button type="button" data-click="sort_lists">Sort Lists</button>
+        </div>
+
+        <div>
+            <button type="button" data-click="show_data">Show Data</button>
+            <pre id="data-display"></pre>
+        </div>
     </div>
 
-    <!-- Sort options -->
-    <div id="sort-options">
-        <label for="sort-by">Sort by:</label>
-        <select id="sort-by">
-            <option value="name">Name</option>
-            <option value="created">Created</option>
-        </select>
-        <label for="sort-order">Order:</label>
-        <select id="sort-order">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-        </select>
-        <button type="button" data-click="sort_lists">Sort Lists</button>
-    </div>
-
-    <!-- Include the JavaScript file -->
     <script src="app.js"></script>
 </body>
 </html>
