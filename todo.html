@@ -44,7 +44,7 @@
                     padding: 40px;
                 }*/
 
-                #control-panel{ /*new adjustment*/
+                .control-panel{ /*new adjustment*/
                     width: 100%;
                                       
                     
@@ -104,10 +104,10 @@
            
             <div id="app">
                
-                <div id="control-panel">
+                <div class="control-panel">
                     <h1>Notes</h1>
-                    <button onclick="AddToDoList()">Add To-Do-List</button>
-                    <button onclick="SortToDoList()">Sort To-Do-List</button>
+                    <button data-click="add_list">Add To-Do-List</button>
+                    <button data-click="delete">Sort To-Do-List</button>
                 </div>
 
                 <!--this <ul> unordered list has to be empty -->
@@ -120,39 +120,14 @@
 
 
                 <div class="todo-list">
-                    <input type="text" placeholder="Enter To-Do-List" maxlength="30"/>
-                    <button onclick="DeleteToDoList()">Delete To-Do-List</button>
-                    <ul>
-                        <li>
-                            
-                            <input type="text" placeholder="Enter Task" maxlength="30"/>
-                            
-                            
-                            <button onclick="DeleteTask()">Delete</button>
-                        
-                        </li>
-                        <li>
-                            
-                            <input type="text" placeholder="Enter Task" maxlength="30"/>
-                           
-                            <button onclick="DeleteTask()">Delete</button>
-                        
-                        </li>
-                        <li>
-                            
-                            <input type="text" placeholder="Enter Task" maxlength="30"/>
-                           
-                            <button onclick="DeleteTask()">Delete</button>
-                        
-                        </li>
-                    </ul>
-                    <button onclick="AddTask()">Add-Task</button>
 
                 </div> 
                
 
           
             </div>
+
+            <script src="./app.js"></script>
         
         </body>
 
